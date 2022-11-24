@@ -1,18 +1,25 @@
-import React from 'react';
-import useGyroscope from 'react-hook-gyroscope'
+import React, { useEffect, useState } from 'react';
 
-  export default function HomePage() {
-    const gyroscope = useGyroscope({
-      frequency: 60, // cycles per second
+export default function HomePage() {
+
+  const [x, setX] = useState(0);
+  const [y, setY] = useState(0);
+  const [z, setZ] = useState(0);
+
+
+  useEffect(() => {
+    window.addEventListener("deviceorientation", (event) => {
+      setX(event.alpha);
+      setY(event.beta);
+      setZ(event.gamma);
     });
-    
-    return (!gyroscope.error && gyroscope.x) ? (
-        <ul>
-          <li>X: {gyroscope.x}</li>
-          <li>Y: {gyroscope.y}</li>
-          <li>Z: {gyroscope.z}</li>
-        </ul>
-      ) : (
-        <p>No gyroscope, sorry.</p>
-      )
-  }
+  });
+
+  return (<>
+    <ul>
+      <li>X: {x}</li>
+      <li>Y: {y}</li>
+      <li>Z: {z}</li>
+    </ul>
+  </>);
+}
