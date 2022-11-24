@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import useNavigatorPermissions from 'react-use-navigator-permissions'
 
 export default function HomePage() {
-  const [permission, setPermission] = useState(false);
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
   const [z, setZ] = useState(0);
@@ -20,7 +19,6 @@ export default function HomePage() {
   }, [status]);
 
   return (<>
-    {permission}
     {(<ul>
       <li>X: {x}</li>
       <li>Y: {y}</li>
