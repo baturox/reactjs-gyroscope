@@ -8,23 +8,21 @@ export default function HomePage() {
   const [z, setZ] = useState(0);
 
   useEffect(() => {
-    if (permission) {
-      window.addEventListener("deviceorientation", (event) => {
-        setX(event.alpha);
-        setY(event.beta);
-        setZ(event.gamma);
-      });
-    }
-  }, [permission]);
+    window.addEventListener("deviceorientation", (event) => {
+      setX(event.alpha);
+      setY(event.beta);
+      setZ(event.gamma);
+    });
+  }, []);
 
   return (<>
     <button onClick={() => {
       setIsStarting(true);
       if (
-        window.DeviceMotionEvent &&
-        typeof window.DeviceMotionEvent.requestPermission === "function"
+        DeviceMotionEvent &&
+        typeof DeviceMotionEvent.requestPermission === "function"
       ) {
-        window.DeviceMotionEvent.requestPermission().then(response => {
+        DeviceMotionEvent.requestPermission().then(response => {
           if (response == "granted") {
             setPermission(true);
           }
@@ -32,7 +30,7 @@ export default function HomePage() {
       }
     }}>{'Start'}</button>
 
-    {(isStarting  && permission) && (<ul>
+    {(isStarting) && (<ul>
       <li>X: {x}</li>
       <li>Y: {y}</li>
       <li>Z: {z}</li>
