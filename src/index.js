@@ -1,24 +1,48 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import reportWebVitals from './reportWebVitals';
+import { useEffect, useState } from 'react';
 
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-} from "react-router-dom";
-import { routers } from './router';
+const GetGyroscope = () => {
+    const [gyroscopeData, setGyroscopeData] = useState({
+        x: null,
+        y: null,
+        z: null
+    });
 
-const router = createBrowserRouter(routers);
+    const getGyroscopeDataFromEvent = (event) => {
+        const data = {
+            x: event.alpha,
+            y: event.beta,
+            z: event.gamma,
+        }
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
-);
+        setGyroscopeData({ ...data });
+    }
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+    useEffect(() => {
+        getPermission();
+    }, []);
+
+    const getPermission = () => {
+        if (
+            typeof DeviceMotionEvent !== 'undefined' &&
+            DeviceMotionEvent &&
+            typeof DeviceMotionEvent.requestPermission === "function"
+        ) {
+            DeviceMotionEvent.requestPermission().then(response => {
+                if (response == "granted") {
+                    window.addEventListener("deviceorientation", getGyroscopeDataFromEvent);
+                }
+            })
+        } else {
+            navigator.permissions.query({ name: "gyroscope" })
+                .then(result => {
+                    if (result.state === "granted") {
+                        window.addEventListener("deviceorientation", getGyroscopeDataFromEvent);
+                    }
+                });
+        }
+    }
+
+    return gyroscopeData;
+}
+
+export default GetGyroscope;
