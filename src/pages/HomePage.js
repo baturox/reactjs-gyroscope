@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import THREE from 'three.js';
 
+
+let scene;
+let renderer;
+let cube;
+let camera;
 export default function HomePage() {
   const [permission, setPermission] = useState(false);
   const [isStarting, setIsStarting] = useState(false);
@@ -9,19 +15,19 @@ export default function HomePage() {
   const [eventCount, setEventCount] = useState(0);
 
   useEffect(() => {
-    if(permission && isStarting){
+    if (permission && isStarting) {
+      box();
       window.addEventListener("deviceorientation", (event) => {
         setX(event.alpha);
         setY(event.beta);
         setZ(event.gamma);
-        setEventCount(eventCount => eventCount+1);
+        setEventCount(eventCount => eventCount + 1);
       });
-    }else{
+    } else {
       window.removeEventListener("deviceorientation", (event) => {
         setX(event.alpha);
         setY(event.beta);
         setZ(event.gamma);
-        setEventCount(0);
       });
     }
   }, [permission, isStarting]);
@@ -47,15 +53,40 @@ export default function HomePage() {
     }
   }
 
+  const box = () => {
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+    renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    const geometry = new THREE.BoxGeometry(1, 1, 1);
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    cube = (new THREE.Mesh(geometry, material));
+    scene.add(cube);
+    camera.position.z = 5;
+  }
+
+  useEffect(() => {
+    if (cube) {
+      cube.rotation.x = x;
+      cube.rotation.y = y;
+      renderer.render(scene, camera);
+    }
+  }, [x, y, z]);
+
+
   return (<>
     <button onClick={() => {
-      if(isStarting){
+      if (isStarting) {
         setIsStarting(false);
-      }else{
+        setEventCount(0);
+      } else {
         setIsStarting(true);
         getPermission();
       }
-    
+
     }}>{!isStarting ? 'Start' : 'Stop'}</button>
 
     {(isStarting && permission) && (<ul>
