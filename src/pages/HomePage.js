@@ -70,8 +70,10 @@ export default function HomePage() {
 
   useEffect(() => {
     if (cube) {
-      cube.rotation.x = x;
-      cube.rotation.y = y;
+      cube.rotation.x = x * 0.1;
+      cube.rotation.y = y * 0.1;
+      cube.rotation.z = z * 0.1;
+
       renderer.render(scene, camera);
     }
   }, [x, y, z]);
