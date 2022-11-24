@@ -7540,6 +7540,11 @@ react-scripts@5.0.1:
   optionalDependencies:
     fsevents "^2.3.2"
 
+react-use-navigator-permissions@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/react-use-navigator-permissions/-/react-use-navigator-permissions-0.1.2.tgz#b5125514fe05b7863b394775c5f37a8ed6a0bbe5"
+  integrity sha512-YCgbco+OnuSsTsTUZZvVJYHnFT+1K53kKOfUmqeYd7B6XkN3CUsj8XqQyskj4bEzgSlMsvPnfCE8h4AcMJ2zdQ==
+
 react@^18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"

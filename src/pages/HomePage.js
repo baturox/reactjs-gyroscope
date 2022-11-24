@@ -1,27 +1,23 @@
 import React, { useEffect, useState } from 'react';
+import useNavigatorPermissions from 'react-use-navigator-permissions'
 
 export default function HomePage() {
   const [permission, setPermission] = useState(false);
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
   const [z, setZ] = useState(0);
+  const { status, error } = useNavigatorPermissions('gyroscope')
 
   useEffect(() => {
-    navigator.permissions.query({ name: "gyroscope" })
-      .then(result => {
-        console.log(result.state);
-        if (result.state === "granted") {
-          // setPermission(true);
-          window.addEventListener("deviceorientation", (event) => {
-            setX(event.alpha);
-            setY(event.beta);
-            setZ(event.gamma);
-          });
-        } else {
-          console.log("No permissions to use AbsoluteOrientationSensor.");
-        }
+    console.log(status);
+    if (status && status == 'granted') {
+      window.addEventListener("deviceorientation", (event) => {
+        setX(event.alpha);
+        setY(event.beta);
+        setZ(event.gamma);
       });
-  }, []);
+    }
+  }, [status]);
 
   return (<>
     {permission}
