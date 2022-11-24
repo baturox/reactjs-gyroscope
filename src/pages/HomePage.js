@@ -2,7 +2,10 @@ import React from 'react';
 import useGyroscope from 'react-hook-gyroscope'
 
   export default function HomePage() {
-    const gyroscope = useGyroscope()
+    const gyroscope = useGyroscope({
+      frequency: 60, // cycles per second
+    });
+    
     return (!gyroscope.error && gyroscope.x) ? (
         <ul>
           <li>X: {gyroscope.x}</li>
