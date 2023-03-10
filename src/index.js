@@ -33,4 +33,4 @@ const getGyroscope = () => {
 };
 
 
-export default getGyroscope;
+export default getGyroscope;    
