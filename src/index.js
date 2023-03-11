@@ -28,5 +28,4 @@ const getGyroscope = () => {
     return gyroscopeData;
 };
 
-
-export default getGyroscope;    
+export default { getGyroscope, sendPermission };    
