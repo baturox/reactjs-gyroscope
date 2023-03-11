@@ -27,3 +27,6 @@ const getGyroscope = () => {
     window.addEventListener("deviceorientation", getGyroscopeDataFromEvent);
     return gyroscopeData;
 };
+
+
+export default getGyroscope;    
