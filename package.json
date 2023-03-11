@@ -6,7 +6,7 @@
     "react",
     "gyroscope"
   ],
-  "repository": "git@github.com:baturox/training-simulator.git",
+  "repository": "git@github.com:baturox/reactjs-gyroscope.git",
   "main": "dist/index.js",
   "license": "LGPL",
   "author": "Batuhan Sahin",
