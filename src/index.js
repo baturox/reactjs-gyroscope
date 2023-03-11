@@ -12,20 +12,25 @@ const getGyroscopeDataFromEvent = event => {
     };
 };
 
-const sendPermission = () => {
-    if (DeviceMotionEvent &&
-        typeof DeviceMotionEvent.requestPermission === "function") {
-        DeviceMotionEvent.requestPermission();
+export const sendPermission = async () => {
+    if (typeof (DeviceMotionEvent) !== "undefined" && typeof (DeviceMotionEvent.requestPermission) === "function") {
+        const response = await DeviceMotionEvent.requestPermission();
+        if (response == "granted") {
+            return true;
+        }
+        return false;
     } else {
-        navigator.permissions.query({
+        const response = await navigator.permissions.query({
             name: "gyroscope"
         });
+        if (response.state === "granted") {
+            return true;
+        }
+        return false;
     }
-}
+};
 
-const getGyroscope = () => {
+export const getGyroscope = () => {
     window.addEventListener("deviceorientation", getGyroscopeDataFromEvent);
     return gyroscopeData;
 };
-
-export default { getGyroscope, sendPermission };    
