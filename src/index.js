@@ -13,7 +13,8 @@ const getGyroscopeDataFromEvent = event => {
 };
 
 const getGyroscope = () => {
-    if (typeof DeviceMotionEvent !== 'undefined' && DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === "function") {
+    if (DeviceMotionEvent &&
+    typeof DeviceMotionEvent.requestPermission === "function") {
         DeviceMotionEvent.requestPermission().then(response => {
             if (response == "granted") {
                 window.addEventListener("deviceorientation", getGyroscopeDataFromEvent);
