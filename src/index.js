@@ -12,26 +12,18 @@ const getGyroscopeDataFromEvent = event => {
     };
 };
 
-const getGyroscope = () => {
+const sendPermission = () => {
     if (DeviceMotionEvent &&
-    typeof DeviceMotionEvent.requestPermission === "function") {
-        DeviceMotionEvent.requestPermission().then(response => {
-            if (response == "granted") {
-                window.addEventListener("deviceorientation", getGyroscopeDataFromEvent);
-            }
-        });
+        typeof DeviceMotionEvent.requestPermission === "function") {
+        DeviceMotionEvent.requestPermission();
     } else {
         navigator.permissions.query({
             name: "gyroscope"
-        }).then(result => {
-            if (result.state === "granted") {
-                window.addEventListener("deviceorientation", getGyroscopeDataFromEvent);
-            }
         });
     }
+}
 
+const getGyroscope = () => {
+    window.addEventListener("deviceorientation", getGyroscopeDataFromEvent);
     return gyroscopeData;
 };
-
-
-export default getGyroscope;    
