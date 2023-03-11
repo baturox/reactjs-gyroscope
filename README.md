@@ -10,15 +10,19 @@ yarn add reactjs-gyroscope
 ## Usage
 
 ```jsx
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getGyroscope, gyroscopePermission } from 'reactjs-gyroscope';
 
 function App() {
   const [start, setStart] = useState(false);
 
-  const gyroscope = start && getGyroscope((event) => {
-    console.log(event)
-  });
+  useEffect(() => {
+    if (start) {
+      getGyroscope((event) => {
+        console.log(event)
+      });
+    }
+  }, [start]);
 
   return (<>
     <button onClick={() => {
