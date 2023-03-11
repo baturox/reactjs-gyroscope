@@ -1,6 +1,6 @@
 {
   "name": "reactjs-gyroscope",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "Get gyroscope data with permission access",
   "keywords": [
     "react",
