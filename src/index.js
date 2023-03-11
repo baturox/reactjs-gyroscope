@@ -1,4 +1,4 @@
-export const sendGyroscopePermission = async () => {
+export const gyroscopePermission = async () => {
     if (typeof (DeviceMotionEvent) !== "undefined" && typeof (DeviceMotionEvent.requestPermission) === "function") {
         const response = await DeviceMotionEvent.requestPermission();
         if (response == "granted") {

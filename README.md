@@ -10,19 +10,28 @@ yarn add reactjs-gyroscope
 ## Usage
 
 ```jsx
-import getGyroscope from 'reactjs-gyroscope';
-const frequency = 100;
-function App() {
-  setInterval(() => {
-    const gyroscope = getGyroscope();
-    console.log(gyroscope)
-  }, frequency);
+import { useState } from 'react'
+import { getGyroscope, gyroscopePermission } from 'reactjs-gyroscope';
 
-  return (<></>);
+function App() {
+  const [start, setStart] = useState(false);
+
+  const gyroscope = start && getGyroscope((event) => {
+    console.log(event)
+  });
+
+  return (<>
+    <button onClick={() => {
+      gyroscopePermission().then(response => {
+        if (response) {
+          setStart(true);
+        }
+      });
+    }}>Start</button>
+  </>);
 }
 
 export default App;
-
 ```
 
 ## Notes
